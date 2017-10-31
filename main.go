@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"io"
-	ssdb "mytools/ssdbtest"
+	qq "mytools/QqServer"
 	"net/http"
 	"strings"
 )
@@ -16,7 +16,7 @@ func sayhelloName(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(r.Form["url_long"])
 	for k, v := range r.Form {
 		fmt.Println("key:", k)
-		fmt.Println("val:", strings.Join(v, ""))
+		fmt.Println("val:", strings.Join(v, "")) //使用这个才行，不然会是【ｏｂｊ】
 	}
 	fmt.Fprintf(w, "这里是小明的测试页面哈~!") //这个写入到w的是输出到客户端的
 	fmt.Fprintf(w, "\n")            //这个写入到w的是输出到客户端的
@@ -28,7 +28,6 @@ func index(w http.ResponseWriter, r *http.Request) {
 	//fmt.PRintln(r.Form())
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.Write([]byte(`zxy`))
-
 }
 func ajax(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("en  ")
@@ -95,5 +94,6 @@ func main() {
 	//redistest.Test()
 
 	//*********ｓｓｄｂ测试
-	ssdb.Test()
+	//ssdb.Test()
+	qq.Main()
 }
