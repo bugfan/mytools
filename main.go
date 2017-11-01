@@ -3,9 +3,10 @@ package main
 import (
 	"fmt"
 	"io"
-	qq "mytools/QqServer"
 	"net/http"
 	"strings"
+
+	"mytools/share"
 )
 
 func sayhelloName(w http.ResponseWriter, r *http.Request) {
@@ -95,5 +96,11 @@ func main() {
 
 	//*********ｓｓｄｂ测试
 	//ssdb.Test()
-	qq.Main()
+	//网络通信
+	//qq.Main()
+	//编译模块
+	fmt.Println(share.Add(2, 3))
+}
+func Add(a int, b int) int {
+	return a + b
 }

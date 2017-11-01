@@ -1,0 +1,21 @@
+1.go build -buildmode=c-shared -o share.so main.go
+：
+package main
+
+import "C"
+
+//export Sum
+func Sum(a, b int) int {
+	return a + b
+}
+
+func main() {}
+
+
+
+2.z在ｐｙ调用：
+#!/usr/bin/env python
+import ctypes
+
+lib = ctypes.CDLL('./sss.so')
+print lib.Sum(7, 11)

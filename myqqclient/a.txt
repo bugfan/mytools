@@ -1,0 +1,5 @@
+drwxrwxr-x  2 miao miao    4096 10月 31 19:27 ./
+drwxrwxr-x 18 miao miao    4096 10月 31 17:23 ../
+-rw-rw-r--  1 miao miao       0 10月 31 19:27 a.txt
+-rw-rw-r--  1 miao miao     554 10月 31 18:41 myclient.go
+-rwxrwxr-x  1 miao miao 2424248 10月 31 18:41 myqqclient*
