@@ -1,31 +1,32 @@
+package main
 
-//	package main
-//
-//	// // No C code needed.
-//	import "C"
-//
-//	import "fmt"
-//
-//	var V int
-//
-//	func F() { fmt.Printf("Hello, number %d\n", V) }
-//
+// // No C code needed.
+import "C"
+
+import "fmt"
+
+var V int
+
+func F() { fmt.Printf("Hello, number %d\n", V) }
+
 // may be loaded with the Open function and then the exported package
 // symbols V and F can be accessed
-//
-//	p, err := plugin.Open("plugin_name.so")
-//	if err != nil {
-//		panic(err)
-//	}
-//	v, err := p.Lookup("V")
-//	if err != nil {
-//		panic(err)
-//	}
-//	f, err := p.Lookup("F")
-//	if err != nil {
-//		panic(err)
-//	}
-//	*v.(*int) = 7
-//	f.(func())() // prints "Hello, number 7"
 
-总结：目测现在只能不传递参数，如果想传，也得定义成援救全局变量，
+p, err := plugin.Open("plugin_name.so")
+if err != nil {
+	panic(err)
+}
+v, err := p.Lookup("V")
+if err != nil {
+	panic(err)
+}
+f, err := p.Lookup("F")
+if err != nil {
+	panic(err)
+}
+*v.(*int) = 7
+f.(func())() // prints "Hello, number 7"
+
+
+总结：目测现在只能不传递参数，如果想传，也得定义成援救全局变量
+

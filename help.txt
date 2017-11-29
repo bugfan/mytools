@@ -1,0 +1,25 @@
+package help
+
+
+func addTenMin2(st string) string {
+	timeLayout := "2006-01-02 15:04"     //转化所需模板
+	loc, _ := time.LoadLocation("Local") //重要：获取时区
+	theTime, _ := time.ParseInLocation(timeLayout, st, loc)
+	fmt.Println(int64(theTime.Weekday()), "WEEK")
+	return ""
+}
+
+func addTenMin(st string) string {
+	timeLayout := "2006-01-02 15:04"     //转化所需模板
+	loc, _ := time.LoadLocation("Local") //重要：获取时区
+	theTime, _ := time.ParseInLocation(timeLayout, st, loc)
+	sr := theTime.Unix() + 600
+	return time.Unix(sr, 0).Format(timeLayout)
+}
+// 简单说O(n²)表示当n很大的时候，复杂度约等于Cn²，C是某个常数，简单说就是当n足够大的时候，n的线性增长，复杂度将沿平方增长。O(n)也是差不多的意思，
+// 也就是说n很大的时候复杂度约等于Cn，C是某个常数。O(1)就是说n很大的时候，复杂度基本就不增长了，基本就是个常量C。
+
+// 作者：Ivony
+// 链接：https://www.zhihu.com/question/21387264/answer/18080913
+// 来源：知乎
+// 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
