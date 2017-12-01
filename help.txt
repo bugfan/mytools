@@ -23,3 +23,17 @@ func addTenMin(st string) string {
 // 链接：https://www.zhihu.com/question/21387264/answer/18080913
 // 来源：知乎
 // 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+//bf的前段控制器--白枫
+1.在main里面调用这个，传入struct
+common包下面有此函数
+func MakeHandler(h Handler) rest.HandlerFunc {
+	return func(w rest.ResponseWriter, r *rest.Request) {
+		common_handler(w, r, h)
+	}
+}
+2.在common中定义了结构体，就是那个出名的绑定结构体,还有解析函数，就是那个common_handler函数，limina里面的第一个事情就是
+把h这个句柄生成model，如果没有转陈宫，继续执行，干别的(他在解析对象的时候，是通过反射解析)
+3.那个h为什么会连续的执行makebodey，checkbody，fuckbody是因为他是一个接口，接口里面有这些函数，然后在common_handler函数
+里面连续的执行这些自定的函数
+
