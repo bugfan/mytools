@@ -33,7 +33,10 @@ func main() {
         fmt.Println("redis set failed:", err)
 	}
     // username, err := redis.Float64(c.Do("get", "mykey"))
-	// 
+
+    // 新增加了reids密码验证 
+    //_,err:=c.Do("auth", "0129")
+	
     username,_:=c.Do("get", "mykey")
     // if err != nil {
     //     fmt.Println("redis get failed:", err)
