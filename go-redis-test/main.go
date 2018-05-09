@@ -8,7 +8,57 @@ import (
 
 
 //博客地址：http://blog.csdn.net/wangshubo1989/article/details/75050024
-
+type RedisConf struct{
+	Url string 
+}
+func (s * RedisConf)Ip()string{
+	r:=strings.Split(s.IpPort(),":")
+	if len(r)==2{
+		return r[0]
+	}
+	return ""
+}
+func (s * RedisConf)Port()string{
+	r:=strings.Split(s.IpPort(),":")
+	if len(r)==2{
+		return r[1]
+	}
+	return ""
+}
+func (s * RedisConf)Passsword()string{
+	r:=strings.Split(s.Url,"@")
+	if len(r)<2{
+		return ""
+	}
+	t:=strings.Split(r[0],"//")
+	if len(t)<2{
+		return ""
+	}
+	y:=strings.Split(t[1],":")
+	if len(y)<2{
+		return ""
+	}
+	return y[1]
+}
+func (s * RedisConf)Index()string{
+	r:=strings.Split(s.Url,"@")
+	if len(r)<2{
+		return ""
+	}
+	t:=strings.Split(r[1],"/")
+	if len(t)==2{
+		return t[1]
+	}
+	return ""
+}
+func (s * RedisConf)IpPort()string{
+	r:=strings.Split(s.Url,"@")
+	if len(r)<2{
+		return ""
+	}
+	t:=strings.Split(r[1],"/")
+	return t[0]
+}
 func main() {
     c, err := redis.Dial("tcp", "127.0.0.1:6379")
     if err != nil {
