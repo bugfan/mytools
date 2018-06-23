@@ -86,6 +86,19 @@ func main() {
 
     // 新增加了reids密码验证 
     //_,err:=c.Do("auth", "0129")
+	//增加取 
+// 	   username, err := redis.String(c.Do("GET", "mykey"))
+//     if err != nil {
+//         fmt.Println("redis get failed:", err)
+//     } else {
+//         fmt.Printf("Get mykey: %v \n", username)
+//     }
+	
+	//增加过期
+// 	 _, err = c.Do("SET", "mykey", "superWang", "EX", "5")
+//     if err != nil {
+//         fmt.Println("redis set failed:", err)
+//     }
 	
     username,_:=c.Do("get", "mykey")
     // if err != nil {
