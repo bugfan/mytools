@@ -1,0 +1,12 @@
+golang  使用rpcx调用步骤
+
+ 服务端:
+1.使用server.NewServer()拿到一个rpc 的server实例
+2.注册各个rpc服务对象，就是一个个类
+3.按照ip地址 协议启动rpc服务 开始阻塞监听
+
+客户端：
+1.使用client NewPeer2PeerDiscovery一个链接的实例，这个实例指定到rpc的服务段（指定协议和地址端口）
+2.使用client NewXClient（）拿到一个rpc的client实例，其中需要指定类名（字符串），还有链接实例等
+3.拿到这个实例就可以操作使用Call（）调用指定的函数来实现功能了，函数参数都是interface ，需要指定入参和出参，返回是一个error
+4.关闭这个client实例
