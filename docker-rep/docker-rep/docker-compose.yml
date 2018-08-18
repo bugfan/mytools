@@ -1,0 +1,24 @@
+version: "3"
+services:
+  registry:
+    image: registry:latest
+    container_name: "registry-srv"
+    restart: always
+    # command: init_sql.sh docker.leaniot.cn/
+    ports:
+      - "5000:5000"
+    volumes:
+      - /var/dockerRegistry:/var/lib/registry # 挂载到 /var/dockerRegistry
+  web:
+    image: hyper/docker-registry-web:latest
+    container_name: "registry-web"
+    restart: always  
+    environment:
+      - REGISTRY_URL=http://registry-srv:5000/v2
+      - REGISTRY_NAME=localhost:5000
+    depends_on:
+      - "registry"
+    ports:
+      - "8082:8080"
+
+# 此docker-compose 主要用来编排启动docker镜像仓库的整个依赖程序
