@@ -1,0 +1,44 @@
+version: "3"
+services:
+  registry:
+    image: registry:latest
+    container_name: "registry-srv"
+    restart: always
+    ports:
+      - "443:443"
+      # - "5000:5000"
+    volumes:
+      - /data/registry_dir/auth:/auth  
+      - /data/registry_dir/certs:/certs   
+      # - /data/registry_dir/conf/registry:/etc/docker/registry:ro
+      - /data/registry_dir/registry:/var/lib/registry
+    environment:
+      - REGISTRY_AUTH=htpasswd  
+      - REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm
+      - REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd
+      - REGISTRY_HTTP_ADDR=0.0.0.0:443
+      - REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.cert
+      - REGISTRY_HTTP_TLS_KEY=/certs/domain.key    
+    networks:
+      - registry-net  
+  web:
+    image: hyper/docker-registry-web:latest
+    container_name: "registry-web"
+    restart: always  
+    volumes:
+      - /data/registry_dir/conf/registry-web:/conf:ro
+      - /data/registry_dir/db:/data
+    environment:
+      - REGISTRY_URL=https://zhaoxinyang.club/v2
+      # - REGISTRY_TRUST_ANY_SSL=true
+      # - REGISTRY_BASIC_AUTH="YWRtaW46Y2hhbmdlbWU="
+      - REGISTRY_NAME=localhost:443
+    depends_on:
+      - "registry"
+    ports:
+      - "8080:8080"
+    networks:
+       - registry-net
+
+networks:
+  registry-net:
