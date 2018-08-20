@@ -26,16 +26,35 @@
 #### Windows 安装步骤
   [点击这里](http://www.runoob.com/docker/windows-docker-install.html)
 
-#### Centos 安装步骤
+### Centos 安装步骤
 - **一 安装docker** ：
 1. 安装docker (CentOS 系统的内核版本需要高于 3.10 ,centos7 以下版本不建议安装docker)
-sudo yum update
+
 ```
-yum -y install docker-io
+# 卸载旧的
+$ sudo yum remove docker \
+                  docker-common \
+                  docker-selinux \
+                  docker-engine
+# 执行以下命令安装依赖包                  
+$ yum install -y yum-utils device-mapper-persistent-data lvm2
+# 使用国内源
+$ sudo yum-config-manager \
+    --add-repo \
+    https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+
+# 开启使用模式
+$ yum-config-manager --enable docker-ce-edge
+$ yum-config-manager --enable docker-ce-test
+
+# 开始安装docker-ce
+$ yum makecache fast
+$ yum install docker-ce
 ```
 2. 启动docker deamon 
 ```
-service docker start
+$ systemctl enable docker
+$ systemctl start docker
 ```
 - **二 安装docker-compose** ：
 1. 安装python-pip
@@ -52,7 +71,7 @@ pip install --upgrade pip
 ```
 4. 安装docker-compse
 ```
-pip install docker-compose --ignore-installed requests
+pip install docker-compose
 ```
 5. 查看版本号
 ```
@@ -71,15 +90,23 @@ docker-compose -version
 	docker pull hyper/docker-registry-web
 	```
 
-- **二 docker 单实例启动 (在下面第五步提供了docker-compose启动方式，更简便)** ：
-	1. 启动仓库
+- **二 docker 单实例启动 (在下面第五步提供了docker-compose启动方式)** ：
+	1. 启动仓库 
 	```
-	$ mkdir /var/dockerRegistry # 创建docker存储镜像的挂载目录
-	$ docker run -d -p 5000:5000 --restart=always --name=registry-srv -v /var/dockerRegistry:/var/lib/registry registry  #  启动 registry
+	# 创建一些挂载目录
+	$ mkdir /data/registry # 创建docker存储镜像的挂载目录
+	$ mkdir /data/certs # 存证书
+	$ mkdir /data/auth # 存访问权限
+	# 自签证书 (过程中e.g server FQDN or YOUR NAME 需要指定自己的域名，其他的无所谓)
+	$ openssl req -newkey rsa:2048 -nodes -sha256 -keyout /data/certs/domain.key -x509 -days 1065 -out /data/certs/domain.crt 
+	# 创建访问权限
+	$ docker run --entrypoint htpasswd registry:2 -Bbn username password  > auth/htpasswd
+	#  启动 registry (我这里暂时没有挂载auth目录，不影响使用)
+	$ docker run -d -p 5000:5000 --restart=always --name registry    -v /data/registry:/var/lib/registry    -v /data/certs:/certs    -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt    -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key    registry:2  
 	```
-	2. 启动web管理
+	2. 启动web管理(web 管理在局域网内有些问题，不建议使用)
 	```
-	$ docker run -it -p 8080:8080 --restart=always --name registry-web --link registry-srv -e REGISTRY_URL=http://registry-srv:5000/v2 -e REGISTRY_NAME=localhost:5000 hyper/docker-registry-web  # 启动web网管
+	$ docker run -d -p 8080:8080 --restart=always --name registry-web --link registry-srv -e REGISTRY_URL=https://docker.yb.com:5000/v2 -e REGISTRY_NAME=localhost:5000 hyper/docker-registry-web  # 启动web网管
 	```
 
 - **三 docker-compose 启动 **:
@@ -90,19 +117,32 @@ docker-compose -version
 	$ docker-compose down   # 停止
 	```
 - **四  使用方式 **:
-	1. 访问 [这个地址](http://172.16.1.155:8082/)  可以查看公司镜像仓库都有哪些镜像 http://172.16.1.155:8082/
+	1. 访问 [这个地址(web管理)](http://docker.yb.com:8080/)  可以查看公司镜像仓库都有哪些镜像 http://docker.yb.com:8080/
 	2. 我们可以使用 'docker push/pull' 命令从仓库拉取镜像或者上传镜像
-	3. 举例:
+		# 举例:
 	```
-	 推送镜像 sudo docker push  172.16.1.155:5000/test.server:latest
-	 拉取镜像 sudo docker pull  172.16.1.155:5000/test.server:latest
+	# 构建镜像 (可以使用tag指定镜像名字，也可以直接指定仓库域名和端口到容器前面，类似于下面这样)
+	$ sudo docker build -t docker.yb.com:5000/xxx.xxx.xxx:xxx 
+	# 推送镜像 (重名会覆盖旧的)
+	 $ sudo docker push  docker.yb.com:5000/test.server:latest
+	 # 拉取镜像 
+	 $ sudo docker pull  docker.yb.com:5000/test.server:latest
 	```
+	3. 我们除了使用web管理之外，仓库也提供rest api接口供我们调用
+		# 举例
+		```
+		# 执行命令请求服务器api接口，会以json形式返回仓库数据(也可以直接在浏览器输入url)
+		$ curl -k https://docker.yb.com:5000/v2/_catalog
+		```
+##说明
+- 后期我会调研一款好用的web ui来显示仓库数据，也希望使用者提供更多的意见
 
 ## 反馈与建议
 - 企业QQ：<zhaoxiaoyuan@douyu.tv>
 - 邮箱：<zhaoxiaoyuan@douyu.tv>
 
 ---------
+
 
 
 
