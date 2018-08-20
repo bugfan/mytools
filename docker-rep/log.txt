@@ -1,0 +1,9 @@
+## 列举以下帮我的博客和帖子，在此表示感谢
+证书相关 https://segmentfault.com/a/1190000012175537
+centos 米名错误 https://stackoverflow.com/questions/34151612/docker-open-certs-domain-crt-permission-denied
+提升相关的 https://www.cnblogs.com/xcloudbiz/articles/5526262.html
+在centos安装docker-ce相关 https://www.cnblogs.com/yu-hailong/p/7629120.html
+提示400bad request或者 auth notsigned之类 https://stackoverflow.com/questions/42211380/add-insecure-registry-to-docker
+版本问题 https://github.com/docker/distribution/issues/1874
+申请标准证书 https://segmentfault.com/a/1190000012712150
+仓库http 操作api https://www.cnblogs.com/Tempted/p/7768694.html
