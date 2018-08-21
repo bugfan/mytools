@@ -117,7 +117,7 @@ docker-compose -version
 	$ docker-compose down   # 停止
 	```
 - **四  使用方式 **:
-注意: 客户端使用之前需要配置下证书，下面以linux平台为例
+	0. 注意: 客户端使用之前需要配置下证书，下面以linux平台为例
 		```
 			$ sudo mkdir /etc/docker/certs/docker.bj.dz11.com
 			$ cp ./ca.crt /etc/docker/certs/docker.bj.dz11.com   # ca.crt 在此工程目录
