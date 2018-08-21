@@ -8,3 +8,10 @@ centos 米名错误 https://stackoverflow.com/questions/34151612/docker-open-cer
 申请标准证书 https://segmentfault.com/a/1190000012712150
 仓库http 操作api https://www.cnblogs.com/Tempted/p/7768694.html
 画流程图 https://www.draw.io/
+
+0. 注意: 客户端使用之前需要配置下证书，下面以linux平台为例
+		```
+			$ sudo mkdir /etc/docker/certs/docker.bj.dz11.com
+			$ cp ./ca.crt /etc/docker/certs/docker.bj.dz11.com   # ca.crt 在此工程目录
+			$ sudo service docker restart
+		```
