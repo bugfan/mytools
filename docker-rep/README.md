@@ -117,12 +117,6 @@ docker-compose -version
 	$ docker-compose down   # 停止
 	```
 - **四  使用方式 **:
-	0. 注意: 客户端使用之前需要配置下证书，下面以linux平台为例
-		```
-			$ sudo mkdir /etc/docker/certs/docker.bj.dz11.com
-			$ cp ./ca.crt /etc/docker/certs/docker.bj.dz11.com   # ca.crt 在此工程目录
-			$ sudo service docker restart
-		```
 	1. 访问 [这个地址(web管理)](http://docker.yb.com:8080/)  可以查看公司镜像仓库都有哪些镜像 http://docker.yb.com:8080/
 	2. 我们可以使用 'docker push/pull' 命令从仓库拉取镜像或者上传镜像
 		# 举例:
