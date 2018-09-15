@@ -1,0 +1,57 @@
+<html>
+<head>
+
+</head>
+<body>
+    {{range .data}}
+        {{.Id}}  {{.Title}}<br/>
+        <img src="https://meiyue2.mm419.com:8082/{{.Imgurl}}"/><input type="file" id="tu{{.Id}}" /><input type="button" value="上传" onclick="fajax('tu{{.Id}}','{{.Imgurl}}')"/><br/>
+        <a href="https://meiyue2.mm419.com:8082/{{.Url}}">{{.Url}}</a><br/><br/>
+    {{end}}
+    <!--<a >{{.data}}</a>-->
+    <!-- <a onclick="a('/static/banner/banner2@2x.png')" href="#">jasdfsdfj</a> -->
+    <div>
+    </div>
+    安卓json配置文件:<br/>
+    <textarea name="jsoncfg" id="jc" cols="110" rows="30">
+        {{.jsoncfg}}
+    </textarea>
+    <input type="button" onclick="" value="确认修改安卓ＪＳＯＮ配置文件" /><br/>
+    苹果json配置文件:<br/>
+    <textarea name="jsoncfg2" id="jc" cols="110" rows="30">
+        {{.jsoncfg2}}
+    </textarea> <input type="button" onclick="" value="确认修改苹果ＪＳＯＮ配置文件" /><br/>
+</body>
+<script>
+    function a(a){
+       // g=document.getElementById("e1");
+        //alert(g.name);
+        //a="/static/banner/banner3@2x.png";
+        alert();
+    }
+    func zip(){
+        
+    }
+    //ａｊａｘ传文件
+    function fajax(o,a){
+        alert(o);
+        alert(a.substring(a.lastIndexOf('/')+1));
+       // return;
+        var formData=new FormData();
+        formData.append("bfile",document.getElementById(o).files[0]);
+        formData.append("bname",a.substring(a.lastIndexOf('/')+1));
+
+        var xhr=new XMLHttpRequest();  //new
+        xhr.open('post','/back/change_img',true);//
+        xhr.send(formData); //发请求send(里面放数据)
+        xhr.onreadystatechange=function(){
+            if (xhr.readyState==4){
+                if (xhr.status==200){
+                    console.log(xhr.responseText);
+                    document.getElementById('txt1').value=xhr.responseText;
+                }
+            }
+        }
+	}	
+</script>
+</html>

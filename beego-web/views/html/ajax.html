@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Go语言与ajax示例</title>
+    <script type="text/javascript" src="http://localhost:8080/mybag/ajax.js"></script>
+</head>
+<body>
+    <p><input id="btn1" type="button" onclick="aja()" value="按钮aja" /></p>
+    <p><input id="btn1" type="button" onclick="begin()" value="按钮begin" /></p>
+    <p><input id="btn1" type="button" onclick="fajax()" value="ａj传文件" /></p>
+    <p><input id="txt1" type="text" /></p>
+
+	file:<input name="img" id="img" type="file"/><br/>    
+</body>
+<script>
+    //ａｊａｘ传文件
+    function fajax(){
+        var formData=new FormData();
+        formData.append("img",document.getElementById('img').files[0]);
+
+        var xhr=new XMLHttpRequest();  //new
+        xhr.open('post','/testDataRouter',true);//
+        xhr.send(formData); //发请求send(里面放数据)
+        xhr.onreadystatechange=function(){
+            if (xhr.readyState==4){
+                if (xhr.status==200){
+                    console.log(xhr.responseText);
+                    document.getElementById('txt1').value=xhr.responseText;
+                }
+            }
+        }
+	}	
+    //原生　ｊｓ异步传输代码
+    function begin(){
+        //在此之前可以判断下浏览器的版本
+        var xhr=new XMLHttpRequest();  //new
+        xhr.open('post','/testAjax',true);//
+        xhr.send(); //发请求send(里面放数据)
+        xhr.onreadystatechange=function(){
+            if (xhr.readyState==4){
+                if (xhr.status==200){
+                    console.log(xhr.responseText);
+                    document.getElementById('txt1').value=xhr.responseText;
+                }
+            }
+        }
+    }
+    //传统的，用别的方式
+    function aja(){
+		$.ajax({
+				 type: 'POST',
+				 url: '/testAjax',
+				data: {id:55},		//use json format
+			    cache:false,
+				success: function(data,st,a){
+					console.log(data);
+					alert(data+':+:'+st+a);
+				},
+				error:function(data){
+					alert(data);
+				}
+		});
+	}	
+</script>
+</html>
