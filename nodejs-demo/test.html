@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<head>
+    <title>jsonp</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+    <div id="mydiv">content</div>
+    <input type="button" onclick="addScriptTag('http://127.0.0.1:8082/jsonp?callback=test')" value="click" />
+</body>
+<script>
+    //动态创建script标签，并请求
+    function addScriptTag(src) {
+        var script = document.createElement('script');
+        script.setAttribute('type', 'text/javascript');
+        script.src = src;
+        document.body.appendChild(script);
+    };
+    //在onload后，跨域请求
+    window.onload = function () {
+        addScriptTag('http://127.0.0.1:8082/jsonp?callback=test');
+    };
+    //回调函数,必须为全局，不然会报错
+    function test(data) {
+        console.log(data.name);
+
+        // 使用js往dom里面查元素
+        domA = document.createElement("a");
+        domA.setAttribute("href", "http://www.zoux.xin");
+        domA.innerHTML = "test";
+        // document.getElementById("mydiv").appendChild(domA);
+        document.body.appendChild(domA);
+        // document.body.appendChild(document.createElement("br")); //琢磨半天
+    };
+    // bind body event DOMNodeInserted DOMSubtreeModified
+    document.addEventListener('DOMNodeInserted', function (e) {
+        // innerHTML read content
+        console.log("e:", e.target.tagName);
+        name = e.target.tagName;
+        myList = com.getFilterList();
+        for (i = 0; i < myList.length; i++) {
+            ele = myList[i];
+            for (k in ele) {
+                if (com.toLower(name) == k) {
+                    oldVal = e.target.getAttribute(ele[k]);
+                    e.target.setAttribute(ele[k], com.modify(oldVal, "127.0.0.1:8080/"));
+                }
+            }
+        }
+    });
+    // my com 
+    var com = new Object();
+    com.getFilterList = function () {
+        // return lower token
+        return [{ "a": "href" }, { "img": "src" }, { "form": "action" },
+        { "img": "data-src" }, { "area": "href" }, { "iframe": "src" }];
+    };
+    com.toLower = function (str) {
+        return str.toLowerCase();
+    };
+    com.modify = function (url, fuckUrl) {
+        f4 = url.substring(0, 4);
+        f1 = url.substring(0, 1);
+        f2 = url.substring(0, 2);
+        fn2 = url.substring(1, 2);
+        console.log("In ----> :", url);
+        if ((f4 == "http") || (f2 == "ws")) {
+            strs = url.split('//');
+            strLen = strs.length;
+            if (strLen > 1) {
+                retStr = strs[0].concat('//').concat(fuckUrl);
+                for (i = 1; i < strLen; i++) {
+                    retStr = retStr.concat(strs[i]);
+                }
+            }
+            console.log("Out <---- :", retStr);
+            return retStr;
+        } else if ((f1 == '/') && (fn2 != '/')) {
+            return '/'.concat(fuckUrl).concat('/').concat(url.substring(1));
+        } else if (f2 == '//') {
+            return '//'.concat(fuckUrl).concat('/').concat(url.substring(2));
+        } else {
+            return url;
+        }
+    };
+</script>
+
+</html>
+
+<!--
+参照：
+https://blog.csdn.net/HUSHILIN001/article/details/80250248
+https://blog.csdn.net/flyingpig2016/article/details/53677679/
+-->
