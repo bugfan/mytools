@@ -1,0 +1,16 @@
+美约1.0bug
+    1.有账号，并且登录成功之后，在点击登录，提示未响应 不过好久  点第二次 登录就崩   和过去时间没关系 输入框有账户密码 并且已经登录后
+    2.那把清空按钮 直接改成  “登出”吧    就是一点以后  下面 的数据  也消失了。 账户密码 也清空了。
+    3.Exception in thread Thread-1:
+        Traceback (most recent call last):
+        File "threading.pyc", line 801, in __bootstrap_inner
+        File "threading.pyc", line 754, in run
+        File "main.py", line 159, in get_fresh
+        File "urllib2.pyc", line 154, in urlopen
+        File "urllib2.pyc", line 429, in open
+        File "urllib2.pyc", line 447, in _open
+        File "urllib2.pyc", line 407, in _call_chain
+        File "urllib2.pyc", line 1241, in https_open
+        File "urllib2.pyc", line 1198, in do_open
+        URLError: <urlopen error [Errno 10060] >
+        运行时异常,需要在request里面捕获异常
