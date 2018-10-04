@@ -1,0 +1,12 @@
+###安装
+1. 源码安装
+2. docker安装
+###设置免sudo
+1. groupadd haproxy && useradd -g haproxy haproxy -s /sbin/nologin
+###目录介绍
+`` 默认安装目录下没有配置文件，只有doc，sbin，share三个目录，可手工创建目录及配置文件。 haproxy的配置文件主要是以下5部分： 
+      1. global全局配置 
+      2. defaults默认配置 
+      3. 监控页面配置 
+      4. frontend配置 
+      5. backend配置
