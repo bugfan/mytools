@@ -1,0 +1,9 @@
+var (
+			err  error
+			data interface{}
+		)
+    1. log.Println("Response:", err)    //这样打印，下面的修改也是无效的
+		2. defer func() {
+			log.Println("Response:", err)   // 这样打印，有效的
+		}()
+    急需处理err
