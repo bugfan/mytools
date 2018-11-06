@@ -1,0 +1,14 @@
+version: '3'
+services: 
+  haproxy:
+    image: haproxy:1.7
+    container_name: haproxy_v1
+    restart: always
+    volumes:
+      - /home/zhao/go-proj/src/test-haproxy/haproxy:/etc/haproxy:ro
+    command: ["haproxy", "-f", "/etc/haproxy/haproxy.cfg"]
+    ports:
+      - 80:80
+      - 443:443
+      - 3000:3000
+      - 5000:5000
