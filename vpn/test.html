@@ -1,0 +1,25 @@
+<html>
+    <head></head>
+    <script src="./vpn_eval.js" charset="utf-8"></script>
+    <script>
+    function judgeUrl(r){
+        console.log("judgeUrl:",r);
+        var t=r.slice(0,3);
+        var nr=r.slice(3);
+        var replacePro=["/http","/https","/ftp","/file"];
+        for (var i=0;i<replacePro.length;i++){
+            nr=nr.replace(replacePro[i],"/xxxx");
+        }
+        return t+nr;
+    }
+    </script>
+<body>
+    <a id="a" href="#" onclick="">22222222</a>
+    <img id="img1" src="http://www.zoux.xin/images/header.jpg"/>
+</body>
+<script>
+</script>
+<script type="text/javascript">
+    document.getElementById("a").setAttribute("href","http://www.zoux.xin");
+</script>
+</html>
