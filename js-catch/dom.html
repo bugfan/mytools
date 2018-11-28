@@ -7,6 +7,7 @@
     <img id="a3" src="https://img.douyucdn.cn/data/yuba/weibo/2018/04/04/201804041625193205587261213.200x0.png"/>
     <input type="button" onclick="testA();" value="testA"/>
     <input type="button" onclick="testB();" value="testB"/>
+    <input type="button" onclick="testC();" value="testC"/>
     <input type="button" onclick="test1();" value="test1"/>
 
     
@@ -37,8 +38,11 @@ function testA(){
 function testB(){
     document.getElementById('a2').href="http://testB.ok";
 }
+function testC(){
+    document.getElementById('a3').src="http://www.baidu.com";
+}
 function test1(){
-    alert(document.getElementById('a2').href);
+    alert(document.getElementById('a3').src);
 }
 //****************************
 list=["a","img"];
@@ -58,16 +62,29 @@ begin = function (x) {
             if (!childs[i].tagName){
                 continue;
             }
+            console.log("Tag In:",childs[i].tagName,childs[i]);
             if (childs[i].tagName=="A"){
-                console.log("长度里面:", i, childs[i]);
                 let o=childs[i];
                 Object.defineProperty(o,'href',{
                     set:function(v){
-                        console.log("fuck ok:",v);
+                        console.log("fuck ok a:",v);
                         o.setAttribute('href',v);
                     },
                     get:function(){
                         return o.getAttribute('href');
+                    }
+                });
+            }else if (childs[i].tagName=="IMG"){
+                console.log("进来:",childs[i]);
+                let oo=childs[i];
+                // oo.setAttribute("src","ccc");
+                Object.defineProperty(oo,'src',{
+                    set:function(v){
+                        console.log("fuck ok src:",v);
+                        oo.setAttribute('src',v);
+                    },
+                    get:function(){
+                        return oo.getAttribute('src');
                     }
                 });
             }
