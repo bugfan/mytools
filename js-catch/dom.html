@@ -1,0 +1,89 @@
+<html>
+<head>
+</head>
+<body>
+    <a id="a1" href="http://www.zoux.xin1">标签1</a>
+    <a id="a2" href="http://www.zoux.xin2">标签2</a>
+    <img id="a3" src="https://img.douyucdn.cn/data/yuba/weibo/2018/04/04/201804041625193205587261213.200x0.png"/>
+    <input type="button" onclick="testA();" value="testA"/>
+    <input type="button" onclick="testB();" value="testB"/>
+    <input type="button" onclick="test1();" value="test1"/>
+
+    
+</body>
+<script>
+// let data1 = {
+//     name:'小明',
+//     age:18
+// }
+
+// Object.defineProperty(data1,'age',{
+//     set:function(newAge){
+//         console.log(this.name+'现在'+newAge+'岁')
+//     },
+//     get:function(){
+// 	    return 18;
+// 	}
+// })
+// //赋值
+// data1.age = 18;
+// data1.age = 19;
+// console.log("final",data1.age);
+
+//******************
+function testA(){
+    document.getElementById('a1').href="http://testA.ok";
+}
+function testB(){
+    document.getElementById('a2').href="http://testB.ok";
+}
+function test1(){
+    alert(document.getElementById('a2').href);
+}
+//****************************
+list=["a","img"];
+begin = function (x) {
+    var childs ;
+    try{
+        childs = x.childNodes;
+    }catch(err){
+        console.log("catch:",err);
+        return;
+    }
+    if (childs.length == 0) {
+        console.log("length zero!");
+        return;
+    } else {
+        for (var i = 0, len = childs.length; i < len; i++) {
+            if (!childs[i].tagName){
+                continue;
+            }
+            if (childs[i].tagName=="A"){
+                console.log("长度里面:", i, childs[i]);
+                let o=childs[i];
+                Object.defineProperty(o,'href',{
+                    set:function(v){
+                        console.log("fuck ok:",v);
+                        o.setAttribute('href',v);
+                    },
+                    get:function(){
+                        return o.getAttribute('href');
+                    }
+                });
+            }
+        }
+    }
+};
+var objid=document.body;//getElementById('a1');
+begin(objid);
+// console.log(objid.tagName);
+// for (let key in objid) {
+//   // 默认情况下通过defineProperty定义的属性是不能被枚举(遍历)的
+//   // 需要设置enumerable为true才可以 否则只能拿到singer 属性
+//   if (key=="href"){
+//     console.log(key,objid[key]);
+//   }
+// }
+console.log("ok");
+</script>
+</html>
