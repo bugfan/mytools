@@ -1,0 +1,205 @@
+<html>
+<head>
+</head>
+<body>
+    <a id="a1" href="http://www.zoux.xin1">标签1</a>
+    <a id="a2" href="http://www.zoux.xin2">标签2</a>
+    <img id="a3" src="https://img.douyucdn.cn/data/yuba/weibo/2018/04/04/201804041625193205587261213.200x0.png"/>
+    <input type="button" onclick="testA();" value="testA"/>
+    <input type="button" onclick="testB();" value="testB"/>
+    <input type="button" onclick="testC();" value="testC"/>
+    <input type="button" onclick="test1();" value="test1"/>
+    <input type="button" onclick="insertScript();" value="插入script"/>
+    <div id="bbb">
+        <a href="dvi1.com"/>div1</a>
+        <a href="div2.com"/>div2</a>
+
+    </div>
+    
+</body>
+<script>
+//******************
+function testA(){
+    document.getElementById('a1').href="http://testA.ok";
+}
+function testB(){
+    document.getElementById('a2').href="http://testB.ok";
+}
+function testC(){
+    document.getElementById('a3').src="http://www.baidu.com";
+}
+function test1(){
+    alert(document.getElementById('a3').src);
+}
+function insertScript(){
+    c=document.createElement("script");
+    c.src="www.baidu.com"
+    document.getElementById("bbb").appendChild(c);
+}
+//****************************
+// 全部小写
+filterMap = {
+    "a":"href",
+    "div":"data-src",
+    "div":"data-src",
+    "script":"src",
+    "span":"data-src",
+    "link":"href",
+    "form":"action",
+    "iframe": "src",
+    "include-fragment": "src", 
+    "img":"src"
+};
+toLower = function (str) {
+    if (!str){
+        return ;
+    }
+    return str.toLowerCase();
+};
+/*
+    ok:
+    127.0.0.1:7070/http/www.baidu.com/abc.html
+    http://127.0.0.1:7070/http/www.baidu.com/abc.html
+    //127.0.0.1:7070/http/www.baidu.com/abc.html
+    
+    not ok:
+    http://www.baidu.com/abc.html
+    www.baidu.com/abc.html
+    //www.baidu.com/abc.html
+    /abc.html
+    abc.html
+    ../abc.html
+*/
+detailMid = function (old){
+    console.log("Path In:",old);
+    var n = detail(old);
+    console.log("Path Out:",n);
+    return n;
+}
+detail = function (old){
+    return "zxy";
+    // if (!old){
+    //     return old;
+    // }
+    // if (old.search(proxyHost)!=-1){
+    //     strs=old.substring(4).split("http");
+    //     if (strs.length<2){
+    //         strs=old.substring(4).split("https");
+    //         if (strs.length<2){
+    //             var end=old.split(proxyHost)[1];
+    //             return proxyScheme+'://'+proxyHost+'/'+proxyScheme+'/'+end;
+    //         }
+    //         return old;
+    //     }
+    //     return old;
+    // }
+    // // 
+    // var a1 = old.slice(0,1);
+    // var a2 = old.slice(0,2);
+    // var a3 = old.slice(0,3);
+    // var a21 = old.slice(1,2);
+    // var a31 = old.slice(2,3);
+    // // var a41 = old.slice(3,4);
+    // var a4 = old.slice(0,4);
+    // var a5 = old.slice(0,5);
+    // if (old=='/'){
+    //     return proxyScheme+'://'+proxyHost+'/'+proxyScheme+'/'+thaisHost+'/'+old;
+    // }
+    // if (old=='#'){
+    //     return old; //proxyScheme+'://'+proxyHost+'/'+proxyScheme+'/';
+    // }
+    // if (a1=='/' && a21!='/'){
+    //     return proxyScheme+'://'+proxyHost+'/'+proxyScheme+'/'+thaisHost+'/'+old;
+    // }
+    // if (a1=='.' && a21=='/' && a31!='/'){
+    //     return old;
+    // }
+    // if (a5=='data'){
+    //     return old;
+    // }
+    // // if (a3=='../'){
+    // //     var t1 = window.loacation.href;
+
+    // // }
+    // if (a1!='/' && a4!='http' && a2!='//'){
+    //     if (old.slice(0,7)=='javascr'){
+    //         return  old;
+    //     }
+    //     return proxyScheme+'://'+proxyHost+'/'+proxyScheme+'/'+thaisHost+'/'+old;
+    // }
+    // if (a1!='/' && a4!='http'){
+    //     return old;
+    // }
+    // if (a5=='https'){   //先写https
+    //     return proxyScheme+'://'+proxyHost+'/'+'https'+old.substring(7);
+    // }
+    // if (a4=='http'){
+    //     return proxyScheme+'://'+proxyHost+'/'+'http'+old.substring(6);
+    // }
+    // if (a2=="//"){
+    //     return proxyScheme+'://'+proxyHost+'/'+proxyScheme+old.substring(1);        
+    // }
+    // return old;
+
+};
+work = function (c) {
+    // console.log("Tag In:",c.tagName,c);
+    if (!c.tagName){
+        return ;
+    }
+    let filter = filterMap[toLower(c.tagName)]; // 这个let真的是。。。
+    // console.log("Filter:",filter);
+    if (filter){
+        let o=c;
+        // console.log("在过滤map中:",o,"before");
+        var old = o.getAttribute(filter);
+        o.setAttribute(filter,detailMid(old));
+        // console.log("在过滤map中:",o,"end");
+        Object.defineProperty(o,filter,{
+            // value: filter,
+            // writable:true,
+            enumerable:true,
+            configurable:true,
+            set:function(v){
+                // console.log("Object defineProperty set before:",v);
+                o.setAttribute(filter,detailMid(v));
+            },
+            get:function(){
+                return o.getAttribute(filter);
+            }
+        });
+    }
+};
+begin = function (x) {
+    work(x);    
+    let childs ;
+    try{
+        childs = x.childNodes;
+    }catch(err){
+        console.log("catch:",err);
+        return;
+    }
+    if (childs.length == 0) {
+        console.log("length zero!");
+        return;
+    } else {
+        for (var i = 0, len = childs.length; i < len; i++) {
+            if (childs[i].childNodes.length == 0) {
+                work(childs[i]);
+            }else{
+                begin(childs[i]);
+            }
+        }
+    }
+};
+// bind body event DOMNodeInserted DOMSubtreeModified
+document.addEventListener('DOMNodeInserted', function (e) {
+    // innerHTML read content
+    console.log("插入的节点:", e.target, e.target.tagName);
+    begin(e.target);
+},true);
+console.log("ok-before:",document.body);
+begin(document.body);
+console.log("ok");
+</script>
+</html>
