@@ -1,0 +1,11 @@
+	//strings.Replace(newHtml, `$("#subform").attr("action",url);`, `alert(2);$("#subform").attr("action",url);alert(1);`, -1) //url = "/http/www.wanfangdata.com.cn/search/searchList.do";
+	reg := `((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(:[0-9]+)?|(?:ww‌​w.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?‌​(?:[\w]*))?)`
+	R := regexp.MustCompile(reg)
+	final := R.ReplaceAllStringFunc(str, func(in string) string {
+		if strings.Contains(in, s.conf.Addr) {
+			return in
+		}
+		a := strings.Replace(in, `://`, `/`, -1)
+		return s.conf.ProxyScheme + "://" + s.conf.Addr + ":" + s.conf.ReplacePort + "/" + a
+	})
+	return final
