@@ -1,0 +1,107 @@
+<html xmlns="http://127.0.0.1:7070/http/www.w3.org/1999/xhtml">
+    <head>
+    <script>
+    var proxyScheme = "http";
+    var proxyHost = "127.0.0.1:7070";
+    var thaisScheme = "http";
+    var thaisHost = "www.cqvip.com";
+    </script>
+    <script src='http://127.0.0.1:7070/http/thais/static/hoo.js'></script>
+    <script src='http://127.0.0.1:7070/http/thais/static/thais.js'></script>
+    <script>
+    hook(Element.prototype,"appendChild",function(){  
+        // console.log("appendChild:",arguments);
+        begin(arguments[0]);            
+    });
+    hook(Element.prototype,"insertBefore",function(){
+        // console.log("insertBefore:",arguments);
+        begin(arguments[0]);            
+    });
+    hook(Element.prototype,"setAttribute",function(){
+        // console.log("setAttribute set:",arguments.length,arguments);
+        for (var i=0;i<arguments.length;i++){
+            if (i==1 && ((arguments[0]=="src")||(arguments[0]=="href"))){
+                arguments[i]=detailMid(arguments[i]);
+            }
+            begin(arguments[i]);            
+        }
+        // console.log("setAttribute set OK:",arguments.length,arguments);
+    });
+    (function() {
+        var originalWrite = document.write;
+        document.write = function() {
+            arguments[0]=strWork(arguments[0]);
+            // console.log("checkpoint 8",arguments[0]);
+            return Function.prototype.apply.call(
+                            originalWrite, document, arguments);    
+        }
+    })();
+    //window.open
+    window.open = function (open) {
+        return function (url, name, features) {
+            // set name if missing here
+            name = name || "default_window_name";
+            url=detailMid(url);
+            console.log("open:",url);
+            return open.call(window, url, name, features);
+        };
+    }(window.open);
+    // xhr
+    XMLHttpRequest.prototype._open = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function(method, url, async) {
+        // 用对象便于修改参数
+        var options = {
+            method: method,
+            url: url,
+            async: async
+        };
+        if('function' === typeof window.beforeXMLHttpRequestSend) {
+            if(!window.beforeXMLHttpRequestSend(this, options)) {
+                return;
+            }
+        }
+        this._open(options.method, options.url, options.async);
+    };
+    window.beforeXMLHttpRequestSend = function(xhr, options) {
+        if(options.url.includes(proxyHost)){
+            return false;
+        }
+        //重置参数
+        options.url = detailMid(options.url);
+        // if (options.url.includes("?")){
+        //     options.url=options.url+"&xhr=true";
+        // }else{
+        //     options.url=options.url+"?xhr=true";
+        // }
+        // console.log("+++++++++++刘加浩:", options.url);
+        // options.method = 'PUT';
+        // options.async = false;
+
+        //禁止发送请求
+        //return false;
+
+        //发送请求
+        return true;
+    };
+    document.addEventListener('DOMNodeInserted', function (e) {
+        // innerHTML read content
+        // console.log("插入的节点:", e.target, e.target.tagName);
+        begin(e.target);
+    });
+    </script>
+    <head></head><body>﻿
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>期刊大全-【维普官方网站】-www.cqvip.com-维普网</title>
+<meta name="description" content="维普资讯网期刊大全，汇集医药卫生、工业技术、自然科学、农业科学和社会科学等领域最权威和最具学术价值的期刊，不仅可提供各种期刊的相关信息，最新的期刊文章在线阅读和下载。还提供各种期刊的权威评价，能让你了解最新的研究成果，各行业的新理论、新技术、新工艺、新产品。是最全面最系统了解中国科技期刊的门户。"/>
+<meta name="keywords" content="科技期刊 学术期刊 专业期刊 期刊网 期刊导航 医药卫生 工程技术 自然科学 农林牧渔 人文社科"/>
+<script>
+    window.location.href = '/qikan/';
+</script>
+
+
+
+
+
+</body></html>
