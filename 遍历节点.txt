@@ -1,0 +1,19 @@
+<script>
+    recursive(document, 0)
+
+    function recursive(elem, tabSize) {
+        for (var i = 0; i < elem.childElementCount; i++) {
+            var child = elem.children[i];
+            console.log(`${getTabString(tabSize)}${child.tagName.toLocaleLowerCase()}: ${child.text ? child.text: ''}`);
+            recursive(child, tabSize + 1);
+        }
+    }
+
+    function getTabString(tabSize) {
+        var tabString = '';
+        for (var i = 0; i < tabSize; i++) {
+            tabString += '  ';
+        }
+        return tabString;
+    }
+</script>
