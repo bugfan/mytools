@@ -1,4 +1,4 @@
-阿斯顿非经
-开心
-鑫
-C:\Users\Administrator\Desktop\finder
+1.把filefinder.exe和my_config.txt放到同一个目录里下 (my_config.txt文件存放你的敏感词，每行一个)
+2.打开控制台,切换到放那两个文件的目录
+3.输入`filefinder.exe 搜索的路径或者盘符` 并回车 
+4.等待。。。 程序启动之后能看到在同级目录生成一个当前日期+'_snake.txt'结尾的文件，程序结束后打开可以看到包含敏感词语的文件路径 
