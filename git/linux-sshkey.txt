@@ -1,0 +1,3 @@
+1. 在自己机器上面 ~/.ssh里面看看是否又pub key，有直接复制粘贴到github-settings-add ssh key
+2. 没有需要自己生成 `$ ssh-keygen -t rsa -C "yours@gmail.com"` 得到两个文件
+3. 然后执行 `ssh-add id_rsa`然后cat id_rsa.pub内容到github 
