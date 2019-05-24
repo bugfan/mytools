@@ -1,0 +1,21 @@
+<html>
+   <head>
+    <meta charset="utf-8">
+    <title>socket io</title>
+   </head>
+   <body>
+        socket io test
+        <input value="" id="text" /> <a href="#" onclick="send()">发送</a>
+   </body>
+   <script type="text/javascript" src="/socket.io.js"></script>
+   <script type="text/javascript">
+        var socket = io.connect('http://localhost:4000');
+        socket.on('news', function(data){
+            console.log('收到:',data);
+        }) 
+        function send(){
+            var  msg = document.getElementById('text').value;
+            socket.emit('my other event',msg);
+        }     
+   </script>
+</html>

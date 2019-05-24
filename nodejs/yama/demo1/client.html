@@ -1,0 +1,70 @@
+<html>
+   <head>
+   <meta charset="utf-8">
+   <title></title>
+    
+      <script type="text/javascript">
+        var ws = null
+        function WebSocketTest() {
+            ws = new WebSocket("ws://localhost:9991/test");
+            ws.onopen = function()
+            {
+                console.log("状态码：",ws.readyState)
+                ws.send("hello c");
+            };
+            
+            ws.onmessage = function (evt) 
+            { 
+                var received_msg = evt.data;
+                console.log("收到的消息是:",received_msg)
+            };
+            ws.onerror = function(err) {
+                console.log("收到的错误信息:",err)
+            }
+            ws.onclose = function()
+            { 
+                console.log("连接已关闭")
+            };
+        }
+
+      </script>
+   </head>
+   <body>
+   
+      <div id="sse">
+         <a href="javascript:WebSocketTest()">运行</a>
+      </div>
+      
+   </body>
+</html>
+
+
+<!-- 属性 -->
+<!-- 
+    只读属性 readyState 表示连接状态，可以是以下值：
+
+    0 - 表示连接尚未建立。
+
+    1 - 表示连接已建立，可以进行通信。
+
+    2 - 表示连接正在进行关闭。
+
+    3 - 表示连接已经关闭或者连接不能打开。
+-->
+
+<!-- Socket事件 -->
+<!-- 
+        open	Socket.onopen	连接建立时触发
+        message	Socket.onmessage	客户端接收服务端数据时触发
+        error	Socket.onerror	通信发生错误时触发
+        close	Socket.onclose	连接关闭时触发
+-->
+
+<!-- Socket方法 -->
+<!-- 
+        Socket.send()	
+        使用连接发送数据
+
+        Socket.close()	
+        关闭连接    
+-->
