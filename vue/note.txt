@@ -1,0 +1,25 @@
+前两天做个刷新二维码的东西，发现url用的是缓存数据，即使url调用的二维码图片内容已经变化，但是vue这边还是用的缓存，必须手动刷新，用下面的方法解决：
+export default {
+    data() {
+      return {
+        // qr_code_src: "https://img.douyucdn.cn/data/yuba/weibo/2018/04/04/201804041625193205587261213.200x0.png",
+        qrcode_url:"/api/qr_code",
+      }
+    },
+    methods: {
+      jump() {
+        this.$router.push({ path: '/system/main' })
+      },
+      refresh_qr_code() {
+          api.smsRefresh().then(res => {
+            setTimeout(function(){
+                  // console.log("refresh:",res.data)
+                  var num = Math.ceil(Math.random()*100)
+                  this.qrcode_url = '/api/qr_code?key=' + num
+                  document.getElementById('qrCode').src=this.qrcode_url
+                  // console.log("url:",document.getElementById('qrCode').src)
+            },500)
+          })
+      }
+    }
+  }
