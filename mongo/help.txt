@@ -1,0 +1,30 @@
+mongodb常用操作语句
+　　1、现有表以及数据添加字段
+　　db.tbGoodsConsultant.update({}, {$set:{nFlagState:0}}, false, true);
+　　2、给表字段添加索引
+　　db.tbGoodsConsultant.ensureIndex({nFlagState:1});
+　　3、增加数据
+　　> db.food.save({"name":"jack","address":{"city":"Shanghai","post":021},"phone":[138,139]});
+　　> db.food.save({"uid":"","AL":['','']});
+　　4、删除表、数据库
+　　> db.users.drop();
+　　> db.dropDatabase();
+　　5、创建索引、数字1表示升序 -1 表示降序
+　　> db.user.ensureIndex({"lId":1,"name":-1});
+　　> db.system.indexes.find();
+　　6、删除索引
+　　> db.mycoll.dropIndex(name)
+　　7、去掉重复数据
+　　> db.user.distinct('name');
+　　8、排序sort 1:ASC -1:DESC
+　　>db.user.find().sort({"age":1});
+　　9、查询name中包含mongo的数据 %y%
+　　> db.user.find({name:/y/});
+　　10、查询name中以d开头的 like 'd%'
+　　> db.user.find({name:/^d/});
+　　11、查询指定列name、age数据（name也可以用true||false，true和name：1等同）
+　　> db.user.find({},{name:1,age:1});
+　　12、查询2条以后的数据
+　　> db.user.find().skip(2);
+　　13、查询在2-10之间的数据
+　　> db.user.find().limit(10).skip(2);
