@@ -28,3 +28,13 @@ mongodb常用操作语句
 　　> db.user.find().skip(2);
 　　13、查询在2-10之间的数据
 　　> db.user.find().limit(10).skip(2);
+
+
+给event_log 集合的tags加一个字段
+```
+db.event_log.update({},{$set:{tags:{serverID:"67"}}},false,true) //覆盖了
+```
+需要这样
+```
+db.event_log.update({},{tags:{$set:{serverID:"67"}}},false,true) //
+```
