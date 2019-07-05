@@ -1,3 +1,4 @@
 腾讯云提供了各个技术栈的介绍 https://cloud.tencent.com/developer/doc/1101
 正则 for golang https://www.cnblogs.com/golove/p/3269099.html
 mongodb for golang https://docs.mongodb.com/manual/reference/operator/update/addToSet/
+js api https://developer.mozilla.org/zh-CN/docs/Web/API/Window/localStorage
