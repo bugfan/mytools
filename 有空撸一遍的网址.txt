@@ -2,3 +2,4 @@
 正则 for golang https://www.cnblogs.com/golove/p/3269099.html
 mongodb for golang https://docs.mongodb.com/manual/reference/operator/update/addToSet/
 js api https://developer.mozilla.org/zh-CN/docs/Web/API/Window/localStorage
+tensorflow、TensorBoard、seq2seq学习地址，写的不错  https://www.jianshu.com/p/e7ac4027eaf8
