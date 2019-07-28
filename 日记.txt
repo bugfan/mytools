@@ -202,3 +202,5 @@ func (c *systemController) reload(ctx *gin.Context) {
      
  2019.7.19
   shell链接：mysql -uroot -h47.94.38.47 -P20001 -p 最近和郭谨合作freedom
+2019.7.28
+   明天开始，郭谨的赶紧弄完了，然后好好写代码，搞一些高端的东西，恩 然后考研。
