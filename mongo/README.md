@@ -1,0 +1,26 @@
+##  mgo 优化日志
+
+###  access_log
+db.access_log.getIndexes()
+db.access_log.createIndex({"tags.server_id":1})
+db.access_log.createIndex({"tags.server_id":1,starttime:1})
+db.access_log.createIndex({starttime:1,"tags.server_id":1})
+db.access_log.createIndex({ip:1,starttime:1})
+db.access_log.createIndex({starttime:1,"tags.server_name":1})
+
+db.access_log.createIndex({date:1})
+db.access_log.createIndex({date:1,"response.status":1})
+db.access_log.createIndex({"tags.server_id":1,"response.status":1})
+db.access_log.createIndex({"response.status":1})
+db.access_log.createIndex({"tags.server_name":1})
+db.access_log.createIndex({"tags.server_id":1,starttime:1,endtime:1})
+db.access_log.createIndex({ip:1,starttime:1,endtime:1})
+db.access_log.createIndex({ip:1})
+db.access_log.createIndex({"response.status":1})
+db.access_log.createIndex({"response.status":1,date:1})
+db.metric_server.createIndex({started_at:1})
+db.metric_loads.createIndex({started_at:1})
+db.metric_loads.createIndex({created_at:1})
+db.metric_mems.createIndex({created_at_at:1})
+db.metric_storage.createIndex({created_at:1})
+db.metric_io.createIndex({created_at:1})
