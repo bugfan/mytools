@@ -5,3 +5,4 @@ js api https://developer.mozilla.org/zh-CN/docs/Web/API/Window/localStorage
 tensorflow、TensorBoard、seq2seq学习地址，写的不错  https://www.jianshu.com/p/e7ac4027eaf8
 用ｇｏ写前段　　https://www.vugu.org/doc/start
 golang gin 　文档 https://www.kancloud.cn/shuangdeyu/gin_book/949434
+c语言再次实现一下进程间通信 https://blog.csdn.net/wh_sjc/article/details/70283843
