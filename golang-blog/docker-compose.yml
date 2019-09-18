@@ -1,0 +1,10 @@
+version: "3"
+services:
+  blog:
+    image: b3log/pipe:latest
+    container_name: "blog"
+    restart: always  
+    volumes:
+      - ~/pipe.db:/opt/pipe/pipe.db
+    ports:
+      - "5897:5897" 
