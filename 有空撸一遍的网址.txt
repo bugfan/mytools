@@ -8,3 +8,4 @@ golang gin 　文档 https://www.kancloud.cn/shuangdeyu/gin_book/949434
 c语言再次实现一下进程间通信 https://blog.csdn.net/wh_sjc/article/details/70283843
 js let var理解 https://www.cnblogs.com/fly_dragon/p/8669057.html
 https://www.jianshu.com/u/f5f514c417e6
+linux openvpn https://www.linuxidc.com/Linux/2010-10/29208.htm
