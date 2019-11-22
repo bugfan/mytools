@@ -10,3 +10,4 @@ js let var理解 https://www.cnblogs.com/fly_dragon/p/8669057.html
 https://www.jianshu.com/u/f5f514c417e6
 linux openvpn https://www.linuxidc.com/Linux/2010-10/29208.htm
 github io https://pages.github.com/
+go too many open files的解决: http://craigwickesser.com/2015/01/golang-http-to-many-open-files/
