@@ -11,3 +11,4 @@ https://www.jianshu.com/u/f5f514c417e6
 linux openvpn https://www.linuxidc.com/Linux/2010-10/29208.htm
 github io https://pages.github.com/
 go too many open files的解决: http://craigwickesser.com/2015/01/golang-http-to-many-open-files/
+go image包案例 裁剪图片 https://blog.csdn.net/chenbaoke/article/details/42805627
