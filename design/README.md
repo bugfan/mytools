@@ -22,7 +22,7 @@ func RegisterRestListener(l RestListener) {
  
  ```
  // 在A包的init开始代码时候添加一些监听：
- sEvent.RegisterRestListener(restBroadcast)
+ B.RegisterRestListener(restBroadcast)
  func restBroadcast(obj map[string]interface{}) {
 	msg, err := json.Marshal(obj)
 	if err != nil {
