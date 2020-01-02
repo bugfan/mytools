@@ -1,16 +1,16 @@
 ## 记录golang经常不用的那些基础
 1. go run [参数]
 2. go run -work main.go //列出此次运行预先编译的二进制的目录
-go build -a // 所有设计到的代码都会重新编译，否则不加-a 是只编译新添加的未被编译的包
-go install  //之后需要指定包路径，它会帮你编译成.a文件
-go get //支持github gitlab gogs自己搭建的也可行,只要是支持git,Mercurial(hg),SVN,Bazaar这几个的一个就可以go get
-go get //拉代码到GOPATH(第一个工作区)下src
-go get -d //只下载，不安装
-go get -fix //先修复，再安装
-go get -u //更新本地已经下载好的
-slice5 := numbers4[4:6:8] //拿到[5 7]
-copy(slice5, slice6)  //内置函数 拷贝 slice6 拷贝到slice5按照从左往右的顺序
-var numbers4 = [...]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10} //定义切片,不定长
+3. go build -a // 所有设计到的代码都会重新编译，否则不加-a 是只编译新添加的未被编译的包
+4. go install  //之后需要指定包路径，它会帮你编译成.a文件
+5. go get //支持github gitlab gogs自己搭建的也可行,只要是支持git,Mercurial(hg),SVN,Bazaar这几个的一个就可以go get
+6. go get //拉代码到GOPATH(第一个工作区)下src
+7. go get -d //只下载，不安装
+8. go get -fix //先修复，再安装
+9. go get -u //更新本地已经下载好的
+10. slice5 := numbers4[4:6:8] //拿到[5 7]
+11. copy(slice5, slice6)  //内置函数 拷贝 slice6 拷贝到slice5按照从左往右的顺序
+12. var numbers4 = [...]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10} //定义切片,不定长
 
 ### 看到了一种以类为约束的实现方式，通常都是以接口；还有atomic
 ```
