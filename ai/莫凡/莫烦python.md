@@ -1,4 +1,6 @@
 ## 找到了一个好网站
+https://github.com/MorvanZhou/tutorials
+这个人写的挺好,挺详细
 
 ### 地址
 https://morvanzhou.github.io/t  utorials/machine-learning/sklearn/1-1-A-ML/
@@ -22,3 +24,18 @@ https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html
 非监督学习:  clustering
 
 dimensionality reduction:把很多属性压缩，PCA降维
+
+### tk python 视频地址
+https://morvanzhou.github.io/tutorials/python-basic/tkinter/
+
+
+## 高级操作
+
+### 正规化
+1. 数据除以他的范围,梯度下降 //preprocessing.scale(X) or preprocessing.minmax_scale(X,feature_range(0,1)) 
+
+### 评价神经网络
+
+### 交叉验证
+
+### 保存模型
