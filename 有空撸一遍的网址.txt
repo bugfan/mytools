@@ -13,3 +13,4 @@ github io https://pages.github.com/
 go too many open files的解决: http://craigwickesser.com/2015/01/golang-http-to-many-open-files/
 go image包案例 裁剪图片 https://blog.csdn.net/chenbaoke/article/details/42805627 ,灰化处理 https://blog.csdn.net/ccboy2009/article/details/77803471
 virtualbox android 系统https://www.jianshu.com/p/bc584f0f9dac
+web版安卓 https://www.genymotion.com/
