@@ -48,12 +48,16 @@ func NewRequest(urlStr string)*http.Request{
 req, _ := http.NewRequest(http.MethodGet, urlStr, nil)
 
   req.AddCookie(&http.Cookie{
-	  Name:  "acw_sc__v2",
-	  Value: "5e566d4dd6c0e075f708183fd70843a747558065",
-  })
+	Name:  "acw_sc__v2",
+	Value: v2,
+})
+req.AddCookie(&http.Cookie{
+	Name:  "CONTAINERID",
+	Value: "58aacc4e080e4660ae934d54dd0da51fff1cd83d1ff0f40ae0b6a72bfb348a5e|XlZ7d|XlZ7Z",
+})
   req.AddCookie(&http.Cookie{
 	  Name:  "acw_sc__v3",
-	  Value: "5e566d4e0cbd8d3008838b793cff6e1fa19fbd35",
+	  Value: v3,
   })
 
   req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36")
