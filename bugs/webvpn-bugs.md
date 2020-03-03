@@ -16,6 +16,9 @@
 ### cookie,session 问题
 1. 请求没有报明显的js错误，同页面下请求接口返回异常，此时先检查cookie，和原网站次请求cookie，对比之后如果看到有cookie的domain没有写在根域，则需要加env ROOT_COOKIE=cas-443.webvpn.test.edu.cn类似的地址，set-cookie时会把domain设置为根域
 
+### cas跳转，或重定向地址问题
+1. 加env REPLACE_LOCATION=src｜dst；可以添加多个，使用；分割
+
 ### 写扩展替换 (一般情况直接写扩展替换)
 1. 根据浏览器报错定位到source文件具体行数，阅读代码，将替换代码设置到webvpn，如果不成功，加入断点进行调试，有的网站需要在无痕浏览器进行调试
 2. 网页有转义符号的，webvpn无法正常工作
