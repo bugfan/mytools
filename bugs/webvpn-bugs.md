@@ -28,3 +28,6 @@
 
 ## webvpn后台调试
 1. DUMP_BODY=yes 打开webvpn向目标服务器发送的内容，进行比对
+
+## 跨域问题，不带cookie，无法发送请求等
+1. 直接升级最新daemon，里面有跨域自动处理；暂时没有把INJECT_JS=true默认开启;我担心访问速度,再测试测试
