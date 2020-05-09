@@ -1,0 +1,14 @@
+version: "3"
+services:
+  daemon:
+    image: apereo/cas:v5.0.4
+    container_name: cas1
+    # restart: always  
+
+    ports:
+      - 8443:8443
+      - 8878:8080
+    command: ["/bin/sh", "/cas-overlay/bin/run-cas.sh"]    
+    # volumes:
+    #   - ./data/server.keystore:/etc/cas/thekeystore
+ 
