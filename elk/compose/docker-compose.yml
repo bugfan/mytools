@@ -1,0 +1,97 @@
+version: '3'
+services:
+  es1:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
+    container_name: es1
+    privileged: true
+    environment:
+      - cluster.name=elasticsearch-cluster
+      - node.name=es1
+      - node.master=true
+      - node.data=true
+      - bootstrap.memory_lock=true
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - cluster.initial_master_nodes=es1
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "discovery.seed_hosts=es1,es2,es3"
+      - "discovery.zen.minimum_master_nodes=2"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./elasticsearch/data/es1:/usr/share/elasticsearch/data
+      - ./elasticsearch/logs/es1:/usr/share/elasticsearch/logs
+ #     - ./elasticsearch/config/es1:/usr/share/elasticsearch/config
+    ports:
+      - 9200:9200
+      - 9300:9300
+  es2:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
+    container_name: es2
+    privileged: true
+    environment:
+      - cluster.name=elasticsearch-cluster
+      - node.name=es2
+      - node.master=true
+      - node.data=true
+      - bootstrap.memory_lock=true
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - cluster.initial_master_nodes=es1
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "discovery.seed_hosts=es1,es2,es3"
+      - "discovery.zen.minimum_master_nodes=2"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./elasticsearch/data/es2:/usr/share/elasticsearch/data
+      - ./elasticsearch/logs/es2:/usr/share/elasticsearch/logs
+ #     - ./elasticsearch/config/es3:/usr/share/elasticsearch/config
+    ports:
+      - 9201:9200
+      - 9301:9300
+  es3:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
+    container_name: es3
+    privileged: true
+    environment:
+      - cluster.name=elasticsearch-cluster
+      - node.name=es3
+      - node.master=true
+      - node.data=true
+      - bootstrap.memory_lock=true
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - cluster.initial_master_nodes=es1
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "discovery.seed_hosts=es1,es2,es3"
+      - "discovery.zen.minimum_master_nodes=2"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./elasticsearch/data/es3:/usr/share/elasticsearch/data
+      - ./elasticsearch/logs/es3:/usr/share/elasticsearch/logs
+#      - ./elasticsearch/config/es3:/usr/share/elasticsearch/config
+    ports:
+      - 9202:9200
+      - 9302:9300
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.2.0
+    container_name: efk-kibana
+    links:
+      - es1
+      - es2
+      - es3
+    ports:
+      - 5601:5601
+    volumes:
+#      - ./kibana/config/kibana.yml:/usr/local/kibana/config/kibana.yml
+      - ./kibana/config/:/usr/local/kibana/config/
+    environment:
+      ELASTICSEARCH_HOSTS: http://0.0.0.0:9200

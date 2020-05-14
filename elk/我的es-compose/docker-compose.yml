@@ -1,0 +1,20 @@
+version: "3"
+services:
+  es:
+    image: elasticsearch:7.6.2
+    container_name: "es"
+    restart: always  
+    environment:
+      # - DB_USER=root
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"               
+      - "9300:9300"
+  kibana:
+    image: kibana:7.2.0
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://localhost:9200 # connect the es-balance node
+      - I18N_LOCALE=zh-CN #汉化
+    ports:
+      - "5601:5601"
