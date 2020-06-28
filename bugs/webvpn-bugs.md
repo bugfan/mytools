@@ -4,6 +4,7 @@
 1. 先把withCredentials设置了看看能不能把cookie带过去解决
 2. 加env CORS_SET=[错误链接的host:port]^[发起错误链接的scheme://host:port] ,用‘；’加多个
 3. 加env SKIP_HEADER=[忽略请求地址的host:[header,header,header,,,]]
+4. xhr请求时候，有的站点特别复杂，js会判断crossOrigin开没开，开了会判断origin，有一种办法就是把他们都设置称对应的值，xhr这边就可以带上cookie了
 
 ### flash问题
 1. flash播放器问题，其他区域加载正常，此时用360极速浏览器等进行实验
