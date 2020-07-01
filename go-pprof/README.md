@@ -7,5 +7,6 @@
 ### 使用 
 1. 在程序主函数加入部分代码即可 类似`server.go`
 2. 然后在可访问的机器调用shell命令向该服务发送http请求
+3. 浏览器查看`http://localhost:6060/debug/pprof/`
 
 ## 文档链接 https://cloud.tencent.com/developer/section/1143647
