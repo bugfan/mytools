@@ -12,3 +12,16 @@
 vendor里面
 3. go mod vendor --> go mod vendor 会复制modules下载到vendor中, 貌似只会下载你代码中引用的库，而不是go.mod中定义全部的module
 
+## goproxy配置 
+出现：
+```
+GO111MODULE=on DB_PASSWORD=123456 ADMIN_HOST=localhost:8080  IP_ADDRESS=2.2.2.2 go run  -tags dev main.go
+go: github.com/360EntSecGroup-Skylar/excelize@v1.4.1: Get https://proxy.golang.org/github.com/360%21ent%21sec%21group-%21skylar/excelize/@v/v1.4.1.mod: dial tcp 34.64.4.113:443: i/o timeout
+```
+设置:
+```
+# Enable the go modules feature
+export GO111MODULE=on
+# Set the GOPROXY environment variable
+export GOPROXY=https://goproxy.io
+```
