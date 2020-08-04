@@ -37,3 +37,4 @@ mysqlslap mysql自带压测工具
 #### PXC集群搭建建议
 1. 采用奇数个机器(偶数容易脑裂)
 2. 
+![avatar](./img/ha-admin-tcp.png)
