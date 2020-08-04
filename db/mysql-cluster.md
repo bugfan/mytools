@@ -34,6 +34,6 @@ mysqlslap mysql自带压测工具
 1. 插入数据前，把部分机器的的端口内部禁止，或者其他办法让数据不能插入，此时进写操作时候提示：`WSREP has not yet prepared node for application use`
 2. 并发向多台主机发送insert最后数据肯定同步了，也是唯一的，但是主键不一定是连续的，因为写操作的时候会占用某个主键，同步失败，这样就用下个主键了。想要避免则使用mycat这种中间件
 
-#### PXC集群搭建建议
+#### PXC集群搭建建议(haproxy篇)
 1. 采用奇数个机器(偶数容易脑裂)
 ![avatar](./ha-admin-tcp.jpg)
