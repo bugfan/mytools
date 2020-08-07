@@ -32,3 +32,44 @@
 
 ## 跨域问题，不带cookie，无法发送请求等
 1. 直接升级最新daemon，里面有跨域自动处理；暂时没有把INJECT_JS=true默认开启;我担心访问速度,再测试测试
+
+
+## 异常返回例子
+1. 出现以下情况，说明请求的协议端口有问题导致没有返回
+````
+root@webvpn:/opt/webvpn# curl -v http://ids-jljy-edu-cn-8080.webvpn.jjtc.com.cn/sso/login?service=http://main.jljy.edu.cn/user/simpleSSOLogin
+* Expire in 0 ms for 6 (transfer 0x55d49eea1f50)
+* Expire in 1 ms for 1 (transfer 0x55d49eea1f50)
+* Expire in 0 ms for 1 (transfer 0x55d49eea1f50)
+* Expire in 0 ms for 1 (transfer 0x55d49eea1f50)
+* Expire in 0 ms for 1 (transfer 0x55d49eea1f50)
+* Expire in 0 ms for 1 (transfer 0x55d49eea1f50)
+* Expire in 2 ms for 1 (transfer 0x55d49eea1f50)
+* Expire in 0 ms for 1 (transfer 0x55d49eea1f50)
+* Expire in 2 ms for 1 (transfer 0x55d49eea1f50)
+* Expire in 2 ms for 1 (transfer 0x55d49eea1f50)
+* Expire in 2 ms for 1 (transfer 0x55d49eea1f50)
+* Expire in 2 ms for 1 (transfer 0x55d49eea1f50)
+* Expire in 2 ms for 1 (transfer 0x55d49eea1f50)
+*   Trying 111.26.175.21...
+* TCP_NODELAY set
+* Expire in 200 ms for 4 (transfer 0x55d49eea1f50)
+* Connected to ids-jljy-edu-cn-8080.webvpn.jjtc.com.cn (111.26.175.21) port 80 (#0)
+> GET /sso/login?service=http://main.jljy.edu.cn/user/simpleSSOLogin HTTP/1.1
+> Host: ids-jljy-edu-cn-8080.webvpn.jjtc.com.cn
+> User-Agent: curl/7.64.0
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Cache-Control: no-cache
+< Cache-Control: no-store
+< Content-Type: text/html;charset=UTF-8
+< Date: Fri, 07 Aug 2020 04:55:14 GMT
+< Expires: Thu, 01 Jan 1970 00:00:00 GMT
+< Pragma: no-cache
+< Server: Apache-Coyote/1.1
+< Set-Cookie: JSESSIONID=61A9D666134182031CCA0F74D74428D6;Path=/sso/
+< Transfer-Encoding: chunked
+< 
+
+````
