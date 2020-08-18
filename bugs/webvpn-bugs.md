@@ -73,3 +73,10 @@ root@webvpn:/opt/webvpn# curl -v http://ids-jljy-edu-cn-8080.webvpn.jjtc.com.cn/
 < 
 
 ````
+
+## set-cookie
+```
+Date: Tue, 18 Aug 2020 02:55:32 GMT
+Set-Cookie: SID=14nRxivlPPDnCgGB14oncXosZaMq85xD;path=/;secure;HttpOnly [感叹号]
+```
+这种设置不了ｃｏｏkie的问题是目标机器用的https,而且还设置了secure和httpｏｎｌｙ，和自己机器的协议不同
