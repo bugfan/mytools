@@ -25,3 +25,8 @@ export GO111MODULE=on
 # Set the GOPROXY environment variable
 export GOPROXY=https://goproxy.io
 ```
+4. 最近发现这个也挺快
+```
+GOPROXY=https://athens.azurefd.net go get xxx
+GOPROXY=https://athens.azurefd.net go mod download
+```
