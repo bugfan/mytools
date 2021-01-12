@@ -26,3 +26,5 @@ transport := &http.Transport{
 		// ExpectContinueTimeout: 1 * time.Second,
 	}
 ```
+3. 超时问题，超时说明到网关是通的，先ping之类的做测试。一般是目标机器出现问题，或者他们防火墙问题。
+4. 程序连接数问题，一般是跳动的才是正常的。
