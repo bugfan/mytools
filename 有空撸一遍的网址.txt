@@ -20,3 +20,4 @@ web版安卓 https://www.genymotion.com/
 容器不留日志 http://www.data-master.net/2039996732
 国密版openssl https://github.com/guanzhi/GmSSL
 没事翻翻 https://cloud.tencent.com/developer/section/1144463
+老外的前端技术 https://jakearchibald.com/
