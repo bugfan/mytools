@@ -1,4 +1,4 @@
-### 编译 linux内核 & 
+### 编译 linux内核 &  （ubuntu|debian发行版）
 1. cd 到源码包文件夹下，安装make时依赖工具
 ```
 cd linuxt-5.11/
@@ -35,6 +35,5 @@ sudo make install
 6. 重启（一般重启就行，不行配置grub）
 
 #### 注意事项
-```
-make中途遇到问题，停止查下百度谷歌必应按照下必要的依赖即可
-```
+1. make中途遇到问题，停止查下百度谷歌必应按照下必要的依赖即可
+2. debian 注释掉.config里面CONFIG_SYSTEM_TRUSTED_KEYS="debian/certs/benh@debian.org.cert.pem"
