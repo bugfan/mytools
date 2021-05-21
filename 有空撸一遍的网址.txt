@@ -22,3 +22,4 @@ web版安卓 https://www.genymotion.com/
 没事翻翻 https://cloud.tencent.com/developer/section/1144463
 老外的前端技术 https://jakearchibald.com/
 tcp个人博客 https://www.cnblogs.com/xiaolincoding/p/12732052.html
+js-cookie https://www.npmjs.com/package/js-cookie
