@@ -4,4 +4,4 @@
 [google android支付流程](https://github.com/bugfan/mytools/blob/master/pay/google-play/README.md "支付流程")
 
 ### apple store
-[apple ios支付流程](https://github.com/bugfan/mytools/blob/master/pay/apple-stroe/README.md "支付流程")
+[apple ios支付流程](https://github.com/bugfan/mytools/tree/master/pay/apple-store "支付流程")
