@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+  <head>
+    <title>Service Worker Lifecycle Demo</title>
+  </head>
+  <body>
+      <h1>
+          首页
+      </h1>
+    <img src="./imgs/1.jpg" alt="demo image" />
+    <script>
+      if ('serviceWorker' in navigator) {
+        // 由于 127.0.0.1:8000 是所有测试 Demo 的 host
+        // 为了防止作用域污染，将安装前注销所有已生效的 Service Worker
+        navigator.serviceWorker.getRegistrations()
+          .then(regs => {
+            for (let reg of regs) {
+                if (reg.scope !== 'http://127.0.0.1:8000') {
+                    reg.unregister()
+                }
+            }
+            navigator.serviceWorker.register('./sw.js')
+          })
+      }
+    </script>
+  </body>
+</html>
