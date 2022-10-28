@@ -11,6 +11,7 @@
 2. 追加未添加的依赖:`go mod tidy` 相当于govendor 的  `govendor add +external`  --> 会从gopath的get下来的代码中找到你引用的代码放到你自己工程的
 vendor里面
 3. go mod vendor --> go mod vendor 会复制modules下载到vendor中, 貌似只会下载你代码中引用的库，而不是go.mod中定义全部的module
+注意:m1的直接brew install govendor一下，不从github自己编译了
 
 ## goproxy配置 
 出现：
