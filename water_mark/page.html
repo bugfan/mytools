@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .watermark {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            left: 0px;
+            pointer-events: none;
+            background-repeat: repeat;
+        }
+        .canvas-hide {
+            display: none;
+        }
+        .canvas-auto-size {
+            size: auto;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+
+        <div id="clear" class="imgBox">
+            <img src="wx.jpg" alt="">
+        </div>
+
+        <canvas id="canvas" ></canvas>
+
+        <canvas id="canvas2" class="canvas-auto-size"></canvas>
+
+    </div>
+
+    <script>
+
+        (function () {
+            function __canvasWM({
+                container = document.body,
+                width = '300px',
+                height = '200px',
+                textAlign = 'center',
+                textBaseline = 'middle',
+                fontSize = "20px",
+                fontFamily = "Microsoft Yahei",
+                fontWeight = 400,
+                fillStyle = 'rgba(184, 184, 184, 0.6)',
+                content = '水印',
+                rotate = '25',
+                zIndex = 10000
+            } = {}) {
+                const args = arguments[0];
+                const canvas = document.createElement('canvas');
+        
+                canvas.setAttribute('width', width);
+                canvas.setAttribute('height', height);
+                const ctx = canvas.getContext("2d");
+        
+                ctx.textAlign = textAlign;
+                ctx.textBaseline = textBaseline;
+                ctx.font = fontWeight + " " + fontSize + " " + fontFamily;
+                ctx.fillStyle = fillStyle;
+                ctx.rotate(Math.PI / 180 * rotate);
+                ctx.fillText(content, parseFloat(width) / 2, parseFloat(height) / 2);
+        
+                const base64Url = canvas.toDataURL();
+                const __wm = document.querySelector('.__wm');
+        
+                const watermarkDiv = __wm || document.createElement("div");
+                const styleStr =
+                    `
+                            position:fixed;
+                            top:0;
+                            left:0;
+                            bottom:0;
+                            right:0;
+                            width:100%%%%;
+                            height:100%%%%;
+                            z-index:${zIndex};
+                            pointer-events:none;
+                            background-repeat:repeat;
+                            background-image:url('${base64Url}')`;
+        
+                watermarkDiv.setAttribute('style', styleStr);
+                watermarkDiv.classList.add('__wm');
+        
+                if (!__wm) {
+                    container.style.position = 'relative';
+                    container.insertBefore(watermarkDiv, container.firstChild);
+                }
+        
+                const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+                if (MutationObserver) {
+                    let mo = new MutationObserver(function () {
+                        const __wm = document.querySelector('.__wm');
+                        if ((__wm && __wm.getAttribute('style') !== styleStr) || !__wm) {
+                            mo.disconnect();
+                            mo = null;
+                            __canvasWM(JSON.parse(JSON.stringify(args)));
+                        }
+                    });
+        
+                    mo.observe(container, {
+                        attributes: true,
+                        subtree: true,
+                        childList: true
+                    })
+                }
+        
+            }
+        
+            if (typeof module != 'undefined' && module.exports) {
+                module.exports = __canvasWM;
+            } else if (typeof define == 'function' && define.amd) {
+                define(function () {
+                    return __canvasWM;
+                });
+            } else {
+                window.__canvasWM = __canvasWM;
+            }
+        })();
+        
+        __canvasWM({
+            content: '%s',
+            width: '%dpx',
+            height: '%dpx',
+            fillStyle: '%s',
+            fontSize: '%dpx',
+            fontFamily: '%s',
+        });
+
+        /*function createWaterMark() {
+            const svgStr =
+                `<svg xmlns="http://www.w3.org/2000/svg" width="150px" height="70px">
+      <text x="0px" y="30px" dy="16px"
+      text-anchor="start"
+      stroke="#000"
+      stroke-opacity="0.1"
+      fill="none"
+      transform="rotate(-20)"
+      font-weight="100"
+      font-size="16"
+      >
+          我爱22Web前端2
+      </text>
+    </svg>`;
+            return `data:image/svg+xml;base64,${window.btoa(unescape(encodeURIComponent(svgStr)))}`;
+        }
+        const watermakr = document.createElement('div');
+        watermakr.className = 'watermark';
+        watermakr.style.backgroundImage = `url(${createWaterMark()})`
+        document.getElementById('clear').appendChild(watermakr);*/
+
+
+        //============================================================
+        var src2d = document.getElementById('canvas').getContext('2d');
+        var textData;
+        var fontSize = '40px'
+
+        var w = document.getElementById('clear').offsetWidth
+        var h = document.getElementById('clear').offsetHeight
+
+        src2d.canvas.width = w
+        src2d.canvas.height = h
+        
+        var x = 0;
+        var y = (canvas.height / 2) - (50/2);    // todo:这里需要计算，根据图的大小
+        
+        src2d.font = fontSize + ' Microsoft Yahei';
+
+        src2d.fillText(`瑞智康诚`, x, y);
+
+        console.log(src2d.canvas.width, src2d.canvas.height,w,h)
+
+        textData = src2d.getImageData(0, 0, src2d.canvas.width, src2d.canvas.height).data;
+        document.getElementById('canvas').style.visibility = 'hidden';
+
+        //----------------------
+        var dst2d = document.getElementById('canvas2').getContext('2d');
+        // 复原尺寸
+        dst2d.canvas.width = w
+        dst2d.canvas.height = h
+
+        var img = new Image();
+        var mergeImg;
+        img.src = 'wx.jpg';
+        img.onload = function () {
+            dst2d.drawImage(img, 0, 0);
+
+            // 获取指定区域的canvas像素信息
+            mergeImg = dst2d.getImageData(0, 0, dst2d.canvas.width, dst2d.canvas.height);
+
+            // 合并到画布
+            merge(dst2d, textData, mergeImg, 'R')
+        };
+
+        var merge = function (ctx, nData, mergeImg, color) {
+            var oData = mergeImg.data;
+            var bit, offset;  // offset的作用是找到alpha通道值
+
+            switch (color) {
+                case 'R':
+                    bit = 0;
+                    offset = 3;
+                    break;
+                case 'G':
+                    bit = 1;
+                    offset = 2;
+                    break;
+                case 'B':
+                    bit = 2;
+                    offset = 1;
+                    break;
+            }
+
+            for (var i = 0; i < oData.length; i++) {
+                if (i % 4 == bit) {
+                    // 只处理目标通道
+                    if (nData[i + offset] === 0 && (oData[i] % 2 === 1)) {
+                        // 没有信息的像素，该通道最低位置0，但不要越界
+                        if (oData[i] === 255) {
+                            oData[i]--;
+                        } else {
+                            oData[i]++;
+                        }
+                    } else if (nData[i + offset] !== 0 && (oData[i] % 2 === 0)) {
+                        // // 有信息的像素，该通道最低位置1，可以想想上面的斑点效果是怎么实现的
+                        if (oData[i] === 255) {
+                            oData[i]--;
+                        } else {
+                            oData[i]++;
+                        }
+                    }
+                }
+            }
+            ctx.putImageData(mergeImg, 0, 0);
+        }
+    </script>
+
+</body>
+
+</html>
